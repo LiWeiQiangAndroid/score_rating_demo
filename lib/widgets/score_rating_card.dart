@@ -98,6 +98,7 @@ class ScoreRatingCard extends StatelessWidget {
             width: 300,
             height: 300,
             child: PentagonRadarChart(
+              gridColor: const Color(0xFF00B0C7).withAlpha(50),
               data: radarData,
             ),
           ),
