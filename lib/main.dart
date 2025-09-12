@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:score_rating_demo/pages/ComprehensiveScoreCardPage.dart';
 import 'pages/demo_page.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class ScoreRatingApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PingFang SC',
       ),
-      home: const DemoPage(),
+      home: const ComprehensiveScoreCardPage(),
       debugShowCheckedModeBanner: false,
     );
   }

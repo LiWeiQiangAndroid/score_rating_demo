@@ -40,9 +40,6 @@ class ScoreRatingCard extends StatelessWidget {
   
   /// 雷达图网格颜色
   final Color? radarGridColor;
-  
-  /// 雷达图标签颜色
-  final Color? radarLabelColor;
 
   const ScoreRatingCard({
     super.key,
@@ -58,7 +55,6 @@ class ScoreRatingCard extends StatelessWidget {
     this.secondaryTextColor = Colors.grey,
     this.radarFillColor,
     this.radarGridColor,
-    this.radarLabelColor,
   });
 
   @override
@@ -150,7 +146,6 @@ class ScoreRatingCard extends StatelessWidget {
               fillColor: radarFillColor ?? primaryColor.withAlpha(90),
               gridColor: radarGridColor ?? primaryColor.withAlpha(50),
               strokeColor: primaryColor,
-              labelColor: radarLabelColor ?? textColor,
             ),
           ),
         ],

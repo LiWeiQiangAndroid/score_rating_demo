@@ -217,7 +217,7 @@ class ComprehensiveRadarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = math.min(size.width, size.height) / 2 - 50;
+    final radius = math.min(size.width, size.height) / 2 - 40;
     final sides = data.length;
 
     // 绘制背景网格
@@ -314,7 +314,7 @@ class ComprehensiveRadarPainter extends CustomPainter {
       ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    canvas.drawPath(path, strokePaint);
+    // canvas.drawPath(path, strokePaint);
 
     // 绘制数据点
     final pointPaint = Paint()
@@ -322,15 +322,16 @@ class ComprehensiveRadarPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     for (final point in dataPoints) {
-      canvas.drawCircle(point, 6, pointPaint);
-      canvas.drawCircle(
-        point,
-        6,
-        Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2,
-      );
+      canvas.drawCircle(point, 3, pointPaint);
+      ///圆点边框
+      // canvas.drawCircle(
+      //   point,
+      //   3,
+      //   Paint()
+      //     ..color = Colors.white
+      //     ..style = PaintingStyle.stroke
+      //     ..strokeWidth = 2,
+      // );
     }
   }
 
@@ -344,7 +345,18 @@ class ComprehensiveRadarPainter extends CustomPainter {
 
     for (int i = 0; i < sides; i++) {
       final angle = -math.pi / 2 + (2 * math.pi * i / sides);
-      final labelRadius = radius + 35;
+      // final labelRadius = radius + 35;
+      double labelRadius;
+      if (i == 0) {
+        // 顶部标签 - 距离稍近一些
+        labelRadius = radius + 20;
+      } else if (i == 1 || i == 4) {
+        // 右上和左上标签 - 距离适中
+        labelRadius = radius + 35;
+      } else {
+        // 右下和左下标签 - 距离
+        labelRadius = radius + 20;
+      }
 
       final labelCenter = Offset(
         center.dx + labelRadius * math.cos(angle),

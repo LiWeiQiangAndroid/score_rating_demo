@@ -72,7 +72,6 @@ class DemoPage extends StatelessWidget {
                 // 橙色主题
                 radarFillColor: const Color(0xFFFF9800).withAlpha(120),
                 radarGridColor: const Color(0xFFFF9800).withAlpha(80),
-                radarLabelColor: Colors.white,
                 radarData: const {
                   '基础价值': 65,
                   '需求质量': 50,

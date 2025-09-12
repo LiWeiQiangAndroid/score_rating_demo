@@ -17,8 +17,7 @@ class PentagonRadarChart extends StatelessWidget {
   /// 网格线颜色
   final Color gridColor;
 
-  /// 标签文字颜色
-  final Color labelColor;
+  final TextStyle? labelTextStyle;
 
   const PentagonRadarChart({
     super.key,
@@ -26,7 +25,7 @@ class PentagonRadarChart extends StatelessWidget {
     this.fillColor = const Color(0xFF4DD0E1),
     this.strokeColor = const Color(0xFF00BCD4),
     this.gridColor = const Color(0xFFE0E0E0),
-    this.labelColor = const Color(0xFF757575),
+    this.labelTextStyle = const TextStyle(color: Color(0xFF1A1A1A), fontSize: 16,fontWeight: FontWeight.w500),
   });
 
   @override
@@ -38,7 +37,7 @@ class PentagonRadarChart extends StatelessWidget {
         fillColor: fillColor,
         strokeColor: strokeColor,
         gridColor: gridColor,
-        labelColor: labelColor,
+        labelTextStyle: labelTextStyle,
       ),
     );
   }
@@ -60,15 +59,15 @@ class RadarChartPainter extends CustomPainter {
   /// 网格线颜色
   final Color gridColor;
 
-  /// 标签文字颜色
-  final Color labelColor;
+  ///标签样式
+  final TextStyle? labelTextStyle;
 
   RadarChartPainter({
     required this.data,
     required this.fillColor,
     required this.strokeColor,
     required this.gridColor,
-    required this.labelColor,
+    this.labelTextStyle,
   });
 
   /// 绘制雷达图的主方法
@@ -82,9 +81,9 @@ class RadarChartPainter extends CustomPainter {
     final radius = min(size.width, size.height) / 2 - 50; // 预留50像素的边距用于标签（增加边距）
 
     // 按顺序绘制图表的各个部分
-    _drawGrid(canvas, center, radius);      // 绘制背景网格
-    _drawDataArea(canvas, center, radius);  // 绘制数据区域
-    _drawLabels(canvas, center, radius);    // 绘制维度标签
+    _drawGrid(canvas, center, radius); // 绘制背景网格
+    _drawDataArea(canvas, center, radius); // 绘制数据区域
+    _drawLabels(canvas, center, radius); // 绘制维度标签
   }
 
   /// 绘制雷达图网格
@@ -218,14 +217,7 @@ class RadarChartPainter extends CustomPainter {
       );
 
       // 配置文字样式
-      textPainter.text = TextSpan(
-        text: labels[i],
-        style: TextStyle(
-          color: labelColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
-      );
+      textPainter.text = TextSpan(text: labels[i], style: labelTextStyle);
 
       textPainter.layout(); // 计算文字的布局信息
 
