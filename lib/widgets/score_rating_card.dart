@@ -16,7 +16,7 @@ class ScoreRatingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -95,8 +95,8 @@ class ScoreRatingCard extends StatelessWidget {
           
           // 雷达图
           SizedBox(
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
             child: PentagonRadarChart(
               data: radarData,
             ),
