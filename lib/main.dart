@@ -12,7 +12,7 @@ class ScoreRatingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '综合评分Demo',
+      title: '五维雷达图Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF00BCD4),
@@ -20,7 +20,7 @@ class ScoreRatingApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'PingFang SC',
       ),
-      home: const ComprehensiveScoreCardPage(),
+      home: const DemoPage(),
       debugShowCheckedModeBanner: false,
     );
   }

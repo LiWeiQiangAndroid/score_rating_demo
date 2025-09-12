@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-/// 综合评分卡片组件
+/// 五维雷达图卡片组件
 /// 包含总分显示和五维雷达图
 class ComprehensiveScoreCard extends StatefulWidget {
   /// 总分数 (0-100)

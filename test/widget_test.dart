@@ -15,7 +15,7 @@ void main() {
     await tester.pumpWidget(const ScoreRatingApp());
 
     // Verify that we have the app bar with correct title.
-    expect(find.text('综合评分Demo'), findsOneWidget);
+    expect(find.text('五维雷达图Demo'), findsOneWidget);
     
     // Verify that we have at least one score displayed.
     expect(find.text('95'), findsOneWidget);

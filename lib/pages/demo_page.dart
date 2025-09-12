@@ -10,7 +10,7 @@ class DemoPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         title: const Text(
-          '综合评分Demo',
+          '五维雷达图Demo',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,

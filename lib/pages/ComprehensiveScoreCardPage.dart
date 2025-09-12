@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:score_rating_demo/widgets/ComprehensiveScoreCard.dart';
 
-/// 综合评分演示页面
+/// 五维雷达图演示页面
 /// 
 /// 展示ComprehensiveScoreCard组件的各种使用方式和样式配置。
 /// 该页面包含多个不同样式的评分卡片示例，以及组件特点说明。
