@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../widgets/score_rating_card.dart';
 
@@ -25,21 +27,21 @@ class DemoPage extends StatelessWidget {
           child: Column(
             children: [
               // 第一个评分卡片 - 默认样式
-              const ScoreRatingCard(
+              ScoreRatingCard(
                 score: 95,
                 percentage: 99.99,
                 radarData: {
-                  '基础价值': 92,
-                  '需求质量': 85,
-                  '互动热度': 90,
-                  '关联资源': 80,
-                  '转化潜力': 88,
+                  '基础价值': 50 + Random().nextInt(51).toDouble(),
+                  '需求质量': 50 + Random().nextInt(51).toDouble(),
+                  '互动热度': 50 + Random().nextInt(51).toDouble(),
+                  '关联资源': 50 + Random().nextInt(51).toDouble(),
+                  '转化潜力': 50 + Random().nextInt(51).toDouble(),
                 },
               ),
               const SizedBox(height: 40),
 
               // 第二个评分卡片 - 自定义标题和颜色
-              const ScoreRatingCard(
+              ScoreRatingCard(
                 score: 76,
                 percentage: 85.32,
                 title: '客户满意度评分',
@@ -48,11 +50,11 @@ class DemoPage extends StatelessWidget {
                 primaryColor: Color(0xFF4CAF50),
                 // 绿色主题
                 radarData: {
-                  '基础价值': 82,
-                  '需求质量': 70,
-                  '互动热度': 65,
-                  '关联资源': 80,
-                  '转化潜力': 75,
+                  '基础价值': 50 + Random().nextInt(51).toDouble(),
+                  '需求质量': 50 + Random().nextInt(51).toDouble(),
+                  '互动热度': 50 + Random().nextInt(51).toDouble(),
+                  '关联资源': 50 + Random().nextInt(51).toDouble(),
+                  '转化潜力': 50 + Random().nextInt(51).toDouble(),
                 },
               ),
               const SizedBox(height: 40),

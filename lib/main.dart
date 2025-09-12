@@ -21,6 +21,7 @@ class ScoreRatingApp extends StatelessWidget {
         fontFamily: 'PingFang SC',
       ),
       home: const DemoPage(),
+      // home: const ComprehensiveScoreCardPage(),
       debugShowCheckedModeBanner: false,
     );
   }
