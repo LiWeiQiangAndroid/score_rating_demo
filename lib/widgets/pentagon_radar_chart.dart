@@ -88,7 +88,7 @@ class RadarChartPainter extends CustomPainter {
 
   /// 绘制雷达图网格
   ///
-  /// 包括3层五边形网格和从中心到各顶点的射线
+  /// 包括5层五边形网格和从中心到各顶点的射线，带有向内发散的阴影投影效果
   /// [canvas] 画布对象
   /// [center] 图表中心点坐标
   /// [radius] 最外层网格半径
@@ -97,16 +97,90 @@ class RadarChartPainter extends CustomPainter {
     final gridPaint = Paint()
       ..color = gridColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
+      ..strokeWidth = 1.5;
 
-    // 绘制3层同心五边形网格，从内到外
+    // 配置阴影渐变画笔 - 从网格线向内发散的淡淡阴影
+    final shadowPaint = Paint()
+      ..style = PaintingStyle.fill;
+
+    // 绘制5层同心五边形网格，从外到内，每层都带有向内的阴影渐变
     for (int layer = 1; layer <= 5; layer++) {
-      final layerRadius = radius * (layer / 5); // 按比例计算每层半径
-      final path = _createPentagonPath(center, layerRadius);
-      canvas.drawPath(path, gridPaint);
+      final layerRadius = radius * (layer / 5);
+      final innerRadius = layer > 1 ? radius * ((layer - 1) / 5) : 0.0;
+      
+      // 创建当前层的路径
+      final outerPath = _createPentagonPath(center, layerRadius);
+      
+      // 绘制阴影渐变效果 - 从当前网格线向内发散
+      if (layer > 1) {
+        final innerPath = _createPentagonPath(center, innerRadius);
+        
+        // 创建径向渐变，从外层网格线向内层渐变
+        final gradient = RadialGradient(
+          center: Alignment.center,
+          radius: 1.0,
+          colors: [
+            gridColor.withOpacity(0.15), // 外层较明显的阴影
+            gridColor.withOpacity(0.05), // 中间淡化
+            gridColor.withOpacity(0.0),  // 内层完全透明
+          ],
+          stops: const [0.0, 0.6, 1.0],
+        );
+        
+        // 计算渐变区域
+        final rect = Rect.fromCircle(
+          center: center,
+          radius: layerRadius,
+        );
+        
+        shadowPaint.shader = gradient.createShader(rect);
+        
+        // 绘制环形区域的阴影
+        final ringPath = Path.combine(
+          PathOperation.difference,
+          outerPath,
+          innerPath,
+        );
+        canvas.drawPath(ringPath, shadowPaint);
+      } else {
+        // 最内层填充淡淡的中心阴影
+        final centerGradient = RadialGradient(
+          center: Alignment.center,
+          radius: 1.0,
+          colors: [
+            gridColor.withOpacity(0.08),
+            gridColor.withOpacity(0.0),
+          ],
+          stops: const [0.0, 1.0],
+        );
+        
+        final centerRect = Rect.fromCircle(
+          center: center,
+          radius: layerRadius,
+        );
+        
+        shadowPaint.shader = centerGradient.createShader(centerRect);
+        canvas.drawPath(outerPath, shadowPaint);
+      }
+      
+      // 绘制网格线
+      canvas.drawPath(outerPath, gridPaint);
     }
 
-    // 绘制从中心到各个顶点的射线（5条）
+    // 配置射线的阴影效果
+    final lineShadowPaint = Paint()
+      ..color = gridColor.withOpacity(0.1)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8.0
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3.0);
+
+    // 配置射线画笔
+    final linePaint = Paint()
+      ..color = gridColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0;
+
+    // 绘制从中心到各个顶点的射线（5条），带有阴影效果
     for (int i = 0; i < 5; i++) {
       // 计算每个顶点的角度，从12点钟方向开始，顺时针分布
       final angle = -pi / 2 + (2 * pi * i / 5);
@@ -114,6 +188,12 @@ class RadarChartPainter extends CustomPainter {
         center.dx + radius * cos(angle),
         center.dy + radius * sin(angle),
       );
+      
+      // 先绘制阴影线
+      // canvas.drawLine(center, endPoint, lineShadowPaint);
+      // 再绘制主线
+      // canvas.drawLine(center, endPoint, linePaint);
+
       canvas.drawLine(center, endPoint, gridPaint);
     }
   }
